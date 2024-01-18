@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetSalesHitsQuery } from "@/lib/redux/services/catalogApi";
+import { CatalogItemApiInterface } from "@/lib/types/apiDefinition";
 
 export default function SalesHits() {
   const { data, isLoading, error } = useGetSalesHitsQuery(undefined);
@@ -22,7 +23,7 @@ export default function SalesHits() {
       ) : (
         <>
           <div className="row">
-            {data?.map((item: any) => (
+            {data?.map((item: CatalogItemApiInterface) => (
               <div className="col-4" key={item.id}>
                 <div className="card">
                   <img
