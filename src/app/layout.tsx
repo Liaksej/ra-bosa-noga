@@ -8,6 +8,7 @@ import Footer from "@/ui/footer/Index";
 import FooterNav from "@/ui/footer/FooterNav";
 import PaymentsAndRights from "@/ui/footer/PaymentsAndRights";
 import Contacts from "@/ui/footer/Contacts";
+import StoreProvider from "@/app/StoreProvider";
 
 export const metadata: Metadata = {
   title: "Обувной магазин Bosa Noga",
@@ -17,27 +18,29 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <Header>
-          <NavBar />
-        </Header>
-        <main className="container">
-          <div className="row">
-            <div className="col">{children}</div>
-          </div>
-        </main>
-        <Footer>
-          <div className="col">
-            <FooterNav />
-          </div>
-          <div className="col">
-            <PaymentsAndRights />
-          </div>
-          <div className="col text-right" style={{ textAlign: "right" }}>
-            <Contacts />
-          </div>
-        </Footer>
-      </body>
+      <StoreProvider>
+        <body>
+          <Header>
+            <NavBar />
+          </Header>
+          <main className="container">
+            <div className="row">
+              <div className="col">{children}</div>
+            </div>
+          </main>
+          <Footer>
+            <div className="col">
+              <FooterNav />
+            </div>
+            <div className="col">
+              <PaymentsAndRights />
+            </div>
+            <div className="col text-right" style={{ textAlign: "right" }}>
+              <Contacts />
+            </div>
+          </Footer>
+        </body>
+      </StoreProvider>
     </html>
   );
 }

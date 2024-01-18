@@ -1,15 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { cartReducer } from "@/lib/redux/features/cart/cartSlice";
+import { catalogApi } from "@/lib/redux/services/catalogApi";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       // Add the generated reducer as a specific top-level slice
-      [firstFeatureApi.reducerPath]: firstFeatureApi.reducer,
+      cart: cartReducer,
+      [catalogApi.reducerPath]: catalogApi.reducer,
     },
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(firstFeatureApi.middleware),
+      getDefaultMiddleware().concat([catalogApi.middleware]),
+    devTools: process.env.NODE_ENV !== "production",
   });
 };
 
