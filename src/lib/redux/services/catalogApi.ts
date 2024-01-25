@@ -10,7 +10,21 @@ export const catalogApi = createApi({
       query: () => "top-sales",
     }),
     getItems: builder.query({
-      query: () => "items",
+      query: ({
+        offset,
+        categoryId,
+      }: {
+        offset: number;
+        categoryId: number | null;
+      }) => ({
+        url: "items",
+        params: categoryId
+          ? {
+              offset: offset,
+              categoryId: categoryId ? categoryId : null,
+            }
+          : { offset: offset },
+      }),
     }),
     getCategories: builder.query({
       query: () => "categories",

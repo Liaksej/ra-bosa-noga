@@ -2,9 +2,17 @@
 
 import { useGetItemsQuery } from "@/lib/redux/services/catalogApi";
 import Categories from "@/ui/Categories";
+import { useRef, useState } from "react";
 
 export default function Catalog() {
-  const { data, isLoading, error } = useGetItemsQuery(undefined);
+  const [offset, setOffset] = useState(0);
+  const [category, setCategory] = useState<number | null>(null);
+  const { data, isLoading, error } = useGetItemsQuery({
+    offset: offset,
+    categoryId: category,
+  });
+
+  // offsetRef.current += 6;
 
   if (error) {
     return null;
@@ -22,7 +30,7 @@ export default function Catalog() {
         </div>
       ) : (
         <>
-          <Categories />
+          <Categories categoryId={setCategory} />
           <div className="row">
             {data?.map((item: any) => (
               <div className="col-4" key={item.id}>
