@@ -3,12 +3,14 @@
 import { useGetCategoriesQuery } from "@/lib/redux/services/catalogApi";
 import Link from "next/link";
 import { CatalogCategoryApiInterface } from "@/lib/types/apiDefinition";
-import { MutableRefObject, MouseEvent, Dispatch } from "react";
+import { Dispatch, SetStateAction, MouseEvent } from "react";
 
 export default function Categories({
   categoryId,
+  setOffset,
 }: {
   categoryId: Dispatch<null | number>;
+  setOffset: Dispatch<SetStateAction<number>>;
 }) {
   const { data, isLoading, error } = useGetCategoriesQuery(undefined);
 
@@ -19,6 +21,7 @@ export default function Categories({
   const categoryHandler = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     categoryId(event.currentTarget.id ? Number(event.currentTarget.id) : null);
+    setOffset(0);
   };
   return (
     <ul className="catalog-categories nav justify-content-center">

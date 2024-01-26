@@ -1,4 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  createApi,
+  fetchBaseQuery,
+  FetchBaseQueryMeta,
+} from "@reduxjs/toolkit/query/react";
 
 export const catalogApi = createApi({
   reducerPath: "catalogApi",
@@ -25,6 +29,18 @@ export const catalogApi = createApi({
             }
           : { offset: offset },
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems, args) => {
+        if (args.arg.offset === 0) {
+          return (currentCache = [...newItems]);
+        }
+        currentCache.push(...newItems);
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
     }),
     getCategories: builder.query({
       query: () => "categories",
