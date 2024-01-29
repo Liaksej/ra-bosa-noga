@@ -1,7 +1,4 @@
-"use client";
-
 import { useGetCategoriesQuery } from "@/lib/redux/services/catalogApi";
-import Link from "next/link";
 import { CatalogCategoryApiInterface } from "@/lib/types/apiDefinition";
 import { Dispatch, SetStateAction, MouseEvent } from "react";
 

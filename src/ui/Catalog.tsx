@@ -3,13 +3,20 @@
 import { useGetItemsQuery } from "@/lib/redux/services/catalogApi";
 import Categories from "@/ui/Categories";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
+import { selectSearchQuery } from "@/lib/redux/features/search/selectors";
 
 export default function Catalog() {
   const [offset, setOffset] = useState(0);
   const [category, setCategory] = useState<number | null>(null);
+  const searchQuery = useSelector((state: RootState) =>
+    selectSearchQuery(state),
+  );
   const { data, isLoading, error } = useGetItemsQuery({
     offset: offset,
     categoryId: category,
+    q: searchQuery,
   });
 
   if (error) {
