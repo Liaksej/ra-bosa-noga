@@ -49,15 +49,27 @@ export default function Catalog() {
               </div>
             ))}
           </div>
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => setOffset((prev) => prev + 6)}
-              className="btn btn-outline-primary"
-            >
-              Загрузить ещё
-            </button>
-          </div>
+          {data.length >= offset + 6 && (
+            <div className="text-center">
+              {isLoading && (
+                <div className="preloader">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              )}
+              <button
+                type="button"
+                aria-disabled={isLoading}
+                disabled={isLoading}
+                onClick={() => setOffset((prev) => prev + 6)}
+                className="btn btn-outline-primary"
+              >
+                Загрузить ещё
+              </button>
+            </div>
+          )}
         </>
       )}
       ;
