@@ -44,8 +44,17 @@ export const catalogApi = createApi({
     getCategories: builder.query({
       query: () => "categories",
     }),
+    getItem: builder.query({
+      query: (id: number) => ({
+        url: `items/${id}`,
+      }),
+    }),
   }),
 });
 
-export const { useGetSalesHitsQuery, useGetCategoriesQuery, useGetItemsQuery } =
-  catalogApi;
+export const {
+  useGetSalesHitsQuery,
+  useGetCategoriesQuery,
+  useGetItemsQuery,
+  useGetItemQuery,
+} = catalogApi;

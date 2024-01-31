@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
 import { selectSearchQuery } from "@/lib/redux/features/search/selectors";
+import Link from "next/link";
 
 export default function Catalog() {
   const [offset, setOffset] = useState(0);
@@ -48,9 +49,12 @@ export default function Catalog() {
                   <div className="card-body">
                     <p className="card-text">{item.title}</p>
                     <p className="card-text">{item.price} руб.</p>
-                    <a href="#" className="btn btn-outline-primary">
+                    <Link
+                      href={`/catalog/${item.id}/`}
+                      className="btn btn-outline-primary"
+                    >
                       Заказать
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
