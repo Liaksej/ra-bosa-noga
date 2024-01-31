@@ -6,8 +6,10 @@ export default function NavBar() {
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <Logo />
-      <NavLinks />
-      <SearchFormAndCart />
+      <div className="collapse navbar-collapse" id="navbarMain">
+        <NavLinks />
+        <SearchFormAndCart />
+      </div>
     </nav>
   );
 }
