@@ -2,6 +2,7 @@
 
 import { useGetSalesHitsQuery } from "@/lib/redux/services/catalogApi";
 import { CatalogItemApiInterface } from "@/lib/types/apiDefinition";
+import Link from "next/link";
 
 export default function SalesHits() {
   const { data, isLoading, error } = useGetSalesHitsQuery(undefined);
@@ -34,9 +35,12 @@ export default function SalesHits() {
                   <div className="card-body">
                     <p className="card-text">{item.title}</p>
                     <p className="card-text">{item.price} руб.</p>
-                    <a href="#" className="btn btn-outline-primary">
+                    <Link
+                      href={`/catalog/${item.id}`}
+                      className="btn btn-outline-primary"
+                    >
                       Заказать
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

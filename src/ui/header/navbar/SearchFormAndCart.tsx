@@ -5,12 +5,13 @@ import { useDispatch } from "react-redux";
 import { searchActions } from "@/lib/redux/features/search/searchSlice";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
+import { useAppDispatch } from "@/lib/redux/hooks";
 
 export default function SearchFormAndCart() {
   const [showSearchForm, setShowSearchForm] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchButton = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const router = useRouter();
 
@@ -61,7 +62,10 @@ export default function SearchFormAndCart() {
           className="header-controls-pic header-controls-search"
         />
         {/* Do programmatic navigation on click to /cart.html */}
-        <div className="header-controls-pic header-controls-cart">
+        <div
+          onClick={() => router.push("/cart")}
+          className="header-controls-pic header-controls-cart"
+        >
           <div className="header-controls-cart-full">1</div>
           <div className="header-controls-cart-menu" />
         </div>

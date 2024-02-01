@@ -2,6 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { cartReducer } from "@/lib/redux/features/cart/cartSlice";
 import { catalogApi } from "@/lib/redux/services/catalogApi";
 import { searchReducer } from "@/lib/redux/features/search/searchSlice";
+import { localStorageMiddleware } from "@/lib/redux/middleware";
+
+const preloadedState = {
+  cart:
+    typeof window !== "undefined" &&
+    JSON.parse(localStorage.getItem("cart") || "{}"),
+};
 
 export const makeStore = () => {
   return configureStore({
@@ -13,8 +20,12 @@ export const makeStore = () => {
     },
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
+    preloadedState,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat([catalogApi.middleware]),
+      getDefaultMiddleware().concat([
+        localStorageMiddleware,
+        catalogApi.middleware,
+      ]),
     devTools: process.env.NODE_ENV !== "production",
   });
 };

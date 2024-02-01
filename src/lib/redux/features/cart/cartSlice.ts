@@ -1,28 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: Record<string, number> = {};
+const initialState: Record<
+  number,
+  {
+    id: number;
+    quantity: number;
+    size: string;
+    price: number;
+    title: string;
+  }
+> = {};
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    increment: (state, { payload }) => {
-      const count = state[payload] || 0;
-      state[payload] = count + 1;
+    addToCart: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          id: number;
+          quantity: number;
+          size: string;
+          price: number;
+          title: string;
+        };
+      },
+    ) => {
+      if (state[payload.id] && state[payload.id].size === payload.size) {
+        state[payload.id].quantity += payload.quantity;
+      } else {
+        state[payload.id] = {
+          id: payload.id,
+          quantity: payload.quantity,
+          size: payload.size,
+          price: payload.price,
+          title: payload.title,
+        };
+      }
     },
-    decrement: (state, { payload }) => {
-      const count = state[payload];
-
-      if (!count) {
-        return;
-      }
-
-      if (count === 1) {
-        delete state[payload];
-        return;
-      }
-
-      state[payload] = count - 1;
+    removeFromCart: (state, { payload }: { payload: number }) => {
+      delete state[payload];
     },
     reset: () => initialState,
   },

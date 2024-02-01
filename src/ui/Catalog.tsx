@@ -7,11 +7,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
 import { selectSearchQuery } from "@/lib/redux/features/search/selectors";
 import Link from "next/link";
+import { useAppSelector } from "@/lib/redux/hooks";
 
 export default function Catalog() {
   const [offset, setOffset] = useState(0);
   const [category, setCategory] = useState<number | null>(null);
-  const searchQuery = useSelector((state: RootState) =>
+  const searchQuery = useAppSelector((state: RootState) =>
     selectSearchQuery(state),
   );
   const { data, isLoading, error } = useGetItemsQuery({
