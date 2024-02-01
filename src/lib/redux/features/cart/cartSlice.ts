@@ -9,7 +9,10 @@ const initialState: Record<
     price: number;
     title: string;
   }
-> = {};
+> =
+  (typeof window !== "undefined" &&
+    JSON.parse(localStorage.getItem("cart") || "{}")) ||
+  {};
 
 const cartSlice = createSlice({
   name: "cart",

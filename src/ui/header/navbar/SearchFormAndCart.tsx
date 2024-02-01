@@ -1,16 +1,17 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { searchActions } from "@/lib/redux/features/search/searchSlice";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
-import { useAppDispatch } from "@/lib/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { selectCartList } from "@/lib/redux/features/cart/selectors";
 
 export default function SearchFormAndCart() {
   const [showSearchForm, setShowSearchForm] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchButton = useRef<HTMLDivElement>(null);
+  const cartTotal = useAppSelector((state) => selectCartList(state).length);
   const dispatch = useAppDispatch();
 
   const router = useRouter();
@@ -66,7 +67,7 @@ export default function SearchFormAndCart() {
           onClick={() => router.push("/cart")}
           className="header-controls-pic header-controls-cart"
         >
-          <div className="header-controls-cart-full">1</div>
+          <div className="header-controls-cart-full">{cartTotal}</div>
           <div className="header-controls-cart-menu" />
         </div>
         <form
