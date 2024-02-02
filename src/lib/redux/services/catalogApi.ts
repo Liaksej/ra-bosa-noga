@@ -49,6 +49,13 @@ export const catalogApi = createApi({
         url: `items/${id}`,
       }),
     }),
+    sendOrder: builder.mutation({
+      query: (data) => ({
+        url: "order",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -57,4 +64,5 @@ export const {
   useGetCategoriesQuery,
   useGetItemsQuery,
   useGetItemQuery,
+  useSendOrderMutation,
 } = catalogApi;

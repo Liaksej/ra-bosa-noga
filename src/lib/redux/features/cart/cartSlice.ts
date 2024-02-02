@@ -47,7 +47,7 @@ const cartSlice = createSlice({
     removeFromCart: (state, { payload }: { payload: number }) => {
       delete state[payload];
     },
-    reset: () => initialState,
+    reset: () => ({}),
   },
 });
 
