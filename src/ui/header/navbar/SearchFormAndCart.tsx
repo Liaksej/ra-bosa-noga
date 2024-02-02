@@ -67,7 +67,9 @@ export default function SearchFormAndCart() {
           onClick={() => router.push("/cart")}
           className="header-controls-pic header-controls-cart"
         >
-          <div className="header-controls-cart-full">{cartTotal}</div>
+          {cartTotal > 0 && (
+            <div className="header-controls-cart-full">{cartTotal}</div>
+          )}
           <div className="header-controls-cart-menu" />
         </div>
         <form

@@ -11,6 +11,15 @@ export default function Cart() {
   const deleteHook = (id: number) => {
     dispatch(cartActions.removeFromCart(id));
   };
+
+  if (products.length === 0) {
+    return (
+      <section className="cart">
+        <h2 className="text-center">Корзина пуста</h2>
+      </section>
+    );
+  }
+
   return (
     <section className="cart">
       <h2 className="text-center">Корзина</h2>

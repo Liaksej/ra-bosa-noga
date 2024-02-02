@@ -1,4 +1,14 @@
+"use client";
+
+import { useAppSelector } from "@/lib/redux/hooks";
+import { selectCartList } from "@/lib/redux/features/cart/selectors";
+
 export default function Order() {
+  const products = useAppSelector((state) => selectCartList(state));
+
+  if (products.length === 0) {
+    return null;
+  }
   return (
     <section className="order">
       <h2 className="text-center">Оформить заказ</h2>
