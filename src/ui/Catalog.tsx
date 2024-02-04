@@ -8,6 +8,7 @@ import { RootState } from "@/lib/redux/store";
 import { selectSearchQuery } from "@/lib/redux/features/search/selectors";
 import Link from "next/link";
 import { useAppSelector } from "@/lib/redux/hooks";
+import Search from "@/ui/catalog/Search";
 
 export default function Catalog() {
   const [offset, setOffset] = useState(0);
@@ -25,9 +26,21 @@ export default function Catalog() {
     return null;
   }
 
+  if (data && data.length === 0 && searchQuery) {
+    return (
+      <section className="catalog">
+        <h2 className="text-center">Каталог</h2>
+        <Search />
+        <Categories categoryId={setCategory} setOffset={setOffset} />
+        <h4 className="text-center">Товары не найдены</h4>
+      </section>
+    );
+  }
+
   return (
     <section className="catalog">
       <h2 className="text-center">Каталог</h2>
+      <Search />
       {isLoading ? (
         <div className="preloader">
           <span />
