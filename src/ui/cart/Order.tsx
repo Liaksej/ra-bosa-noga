@@ -6,6 +6,7 @@ import { selectCartList } from "@/lib/redux/features/cart/selectors";
 import { useSendOrderMutation } from "@/lib/redux/services/catalogApi";
 import { cartActions } from "@/lib/redux/features/cart/cartSlice";
 import Cart from "@/ui/cart/Cart";
+import Preloader from "@/ui/Preloader";
 
 export default function Order() {
   const products = useAppSelector((state) => selectCartList(state));
@@ -46,16 +47,7 @@ export default function Order() {
   }
 
   if (isLoading) {
-    return (
-      <section className="order">
-        <div className="preloader">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-      </section>
-    );
+    return <Preloader />;
   }
 
   return (

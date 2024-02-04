@@ -62,7 +62,6 @@ export default function SearchFormAndCart() {
           data-id="search-expander"
           className="header-controls-pic header-controls-search"
         />
-        {/* Do programmatic navigation on click to /cart.html */}
         <div
           onClick={() => router.push("/cart")}
           className="header-controls-pic header-controls-cart"

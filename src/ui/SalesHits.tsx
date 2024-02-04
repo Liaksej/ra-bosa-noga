@@ -3,24 +3,26 @@
 import { useGetSalesHitsQuery } from "@/lib/redux/services/catalogApi";
 import { CatalogItemApiInterface } from "@/lib/types/apiDefinition";
 import Link from "next/link";
+import Preloader from "@/ui/Preloader";
+import Error from "@/ui/Error";
 
 export default function SalesHits() {
-  const { data, isLoading, error } = useGetSalesHitsQuery(undefined);
+  const { data, isLoading, error, refetch } = useGetSalesHitsQuery(undefined);
 
   if (error) {
-    return null;
+    return (
+      <section className="top-sales">
+        <h2 className="text-center">Хиты продаж!</h2>
+        <Error refetch={refetch} />
+      </section>
+    );
   }
 
   return (
     <section className="top-sales">
       <h2 className="text-center">Хиты продаж!</h2>
       {isLoading ? (
-        <div className="preloader">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
+        <Preloader />
       ) : (
         <>
           <div className="row">

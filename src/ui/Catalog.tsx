@@ -2,35 +2,42 @@
 
 import { useGetItemsQuery } from "@/lib/redux/services/catalogApi";
 import Categories from "@/ui/Categories";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { ReactNode, useState } from "react";
 import { RootState } from "@/lib/redux/store";
 import { selectSearchQuery } from "@/lib/redux/features/search/selectors";
 import Link from "next/link";
 import { useAppSelector } from "@/lib/redux/hooks";
-import Search from "@/ui/catalog/Search";
+import Preloader from "@/ui/Preloader";
+import Error from "@/ui/Error";
 
-export default function Catalog() {
+export default function Catalog({ children }: { children: ReactNode }) {
   const [offset, setOffset] = useState(0);
   const [category, setCategory] = useState<number | null>(null);
   const searchQuery = useAppSelector((state: RootState) =>
     selectSearchQuery(state),
   );
-  const { data, isLoading, error } = useGetItemsQuery({
+  const { data, isLoading, error, refetch } = useGetItemsQuery({
     offset: offset,
     categoryId: category,
     q: searchQuery,
   });
 
   if (error) {
-    return null;
+    return (
+      <section className="catalog">
+        <h2 className="text-center">Каталог</h2>
+        {children}
+        <Categories categoryId={setCategory} setOffset={setOffset} />
+        <Error refetch={refetch} />
+      </section>
+    );
   }
 
   if (data && data.length === 0 && searchQuery) {
     return (
       <section className="catalog">
         <h2 className="text-center">Каталог</h2>
-        <Search />
+        {children}
         <Categories categoryId={setCategory} setOffset={setOffset} />
         <h4 className="text-center">Товары не найдены</h4>
       </section>
@@ -40,14 +47,9 @@ export default function Catalog() {
   return (
     <section className="catalog">
       <h2 className="text-center">Каталог</h2>
-      <Search />
+      {children}
       {isLoading ? (
-        <div className="preloader">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
+        <Preloader />
       ) : (
         <>
           <Categories categoryId={setCategory} setOffset={setOffset} />
@@ -76,14 +78,7 @@ export default function Catalog() {
           </div>
           {data.length >= offset + 6 && (
             <div className="text-center">
-              {isLoading && (
-                <div className="preloader">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                </div>
-              )}
+              {isLoading && <Preloader />}
               <button
                 type="button"
                 aria-disabled={isLoading}
@@ -97,7 +92,6 @@ export default function Catalog() {
           )}
         </>
       )}
-      ;
     </section>
   );
 }

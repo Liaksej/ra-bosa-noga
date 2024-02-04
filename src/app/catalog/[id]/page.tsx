@@ -8,6 +8,8 @@ import Quantity from "@/ui/item/Quantity";
 import { cartActions } from "@/lib/redux/features/cart/cartSlice";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/redux/hooks";
+import NotFound from "@/ui/NotFound";
+import Preloader from "@/ui/Preloader";
 
 export default function ItemPage({ params }: { params: { id: number } }) {
   const [chosenSize, setChosenSize] = useState("");
@@ -34,15 +36,14 @@ export default function ItemPage({ params }: { params: { id: number } }) {
     }
   };
 
+  if (error) {
+    return <NotFound />;
+  }
+
   return (
     <section className="catalog-item">
       {isLoading ? (
-        <div className="preloader">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
+        <Preloader />
       ) : (
         <>
           <h2 className="text-center">{data?.title}</h2>

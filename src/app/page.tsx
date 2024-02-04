@@ -7,7 +7,9 @@ export default function Home() {
     <>
       <Banner />
       <SalesHits />
-      <Catalog />
+      <Catalog>
+        <></>
+      </Catalog>
     </>
   );
 }
