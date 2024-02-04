@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import NotFound from "@/ui/NotFound";
 import Preloader from "@/ui/Preloader";
+import Image from "next/image";
 
 export default function ItemPage({ params }: { params: { id: number } }) {
   const [chosenSize, setChosenSize] = useState("");
@@ -49,7 +50,11 @@ export default function ItemPage({ params }: { params: { id: number } }) {
           <h2 className="text-center">{data?.title}</h2>
           <div className="row">
             <div className="col-5">
-              <img src={data?.images[0]} className="img-fluid" alt="" />
+              <img
+                src={data?.images[0]}
+                className="img-fluid"
+                alt={data.title}
+              />
             </div>
             <div className="col-7">
               <Table data={data} />
@@ -68,6 +73,7 @@ export default function ItemPage({ params }: { params: { id: number } }) {
                   disabled={chosenSize === ""}
                   onClick={addToCardHandler}
                   className="btn btn-danger btn-block btn-lg"
+                  style={{ width: "100%" }}
                 >
                   В корзину
                 </button>

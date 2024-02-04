@@ -6,6 +6,7 @@ import { ReactNode, useState } from "react";
 import { RootState } from "@/lib/redux/store";
 import { selectSearchQuery } from "@/lib/redux/features/search/selectors";
 import Link from "next/link";
+import Image from "next/image";
 import { useAppSelector } from "@/lib/redux/hooks";
 import Preloader from "@/ui/Preloader";
 import Error from "@/ui/Error";
@@ -53,24 +54,30 @@ export default function Catalog({ children }: { children: ReactNode }) {
       ) : (
         <>
           <Categories categoryId={setCategory} setOffset={setOffset} />
-          <div className="row">
+          <div className="row g-4 mb-4">
             {data?.map((item: any) => (
               <div className="col-4" key={item.id}>
-                <div className="card catalog-item-card">
-                  <img
+                <div className="card h-100 catalog-item-card">
+                  <Image
                     src={item.images[0]}
-                    className="card-img-top img-fluid"
+                    width={300}
+                    height={300}
+                    className="image-container card-img-top img-fluid"
                     alt={item.title}
+                    objectFit="contain"
+                    style={{ maxHeight: "300px", objectFit: "contain" }}
                   />
-                  <div className="card-body">
-                    <p className="card-text">{item.title}</p>
-                    <p className="card-text">{item.price} руб.</p>
-                    <Link
-                      href={`/catalog/${item.id}/`}
-                      className="btn btn-outline-primary"
-                    >
-                      Заказать
-                    </Link>
+                  <div className="card-body d-flex flex-column">
+                    <div className="mt-auto">
+                      <p className="card-text">{item.title}</p>
+                      <p className="card-text">{item.price} руб.</p>
+                      <Link
+                        href={`/catalog/${item.id}/`}
+                        className="btn btn-outline-primary"
+                      >
+                        Заказать
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

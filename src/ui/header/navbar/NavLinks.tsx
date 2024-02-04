@@ -26,7 +26,7 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <ul className="navbar-nav mr-auto">
+    <ul className="navbar-nav mr-auto" style={{ marginRight: "auto" }}>
       {listOfLinks.map((link) => (
         <li className="nav-item" key={link.href}>
           <Link

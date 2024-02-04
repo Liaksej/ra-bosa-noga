@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { selectCartList } from "@/lib/redux/features/cart/selectors";
 import { useSendOrderMutation } from "@/lib/redux/services/catalogApi";

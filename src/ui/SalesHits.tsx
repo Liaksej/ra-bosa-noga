@@ -5,6 +5,7 @@ import { CatalogItemApiInterface } from "@/lib/types/apiDefinition";
 import Link from "next/link";
 import Preloader from "@/ui/Preloader";
 import Error from "@/ui/Error";
+import Image from "next/image";
 
 export default function SalesHits() {
   const { data, isLoading, error, refetch } = useGetSalesHitsQuery(undefined);
@@ -28,11 +29,15 @@ export default function SalesHits() {
           <div className="row">
             {data?.map((item: CatalogItemApiInterface) => (
               <div className="col-4" key={item.id}>
-                <div className="card">
-                  <img
+                <div className="card h-100">
+                  <Image
+                    width={300}
+                    height={300}
                     src={item.images[0]}
                     className="card-img-top img-fluid"
                     alt={item.title}
+                    objectFit="contain"
+                    style={{ maxHeight: "300px", objectFit: "contain" }}
                   />
                   <div className="card-body">
                     <p className="card-text">{item.title}</p>
