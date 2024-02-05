@@ -17,37 +17,34 @@ export default function Catalog({ children }: { children: ReactNode }) {
   const searchQuery = useAppSelector((state: RootState) =>
     selectSearchQuery(state),
   );
-  const { data, isLoading, error, refetch } = useGetItemsQuery({
+  const { data, isLoading, error, refetch, isFetching } = useGetItemsQuery({
     offset: offset,
     categoryId: category,
     q: searchQuery,
   });
 
-  if (error && !isLoading) {
+  if (error && !isFetching) {
     return (
-      <section className="catalog">
-        <h2 className="text-center">Каталог</h2>
+      <CatalogWrapper>
         {children}
         <Categories categoryId={setCategory} setOffset={setOffset} />
         <Error refetch={refetch} />
-      </section>
+      </CatalogWrapper>
     );
   }
 
   if (data && data.length === 0 && searchQuery) {
     return (
-      <section className="catalog">
-        <h2 className="text-center">Каталог</h2>
+      <CatalogWrapper>
         {children}
         <Categories categoryId={setCategory} setOffset={setOffset} />
         <h4 className="text-center">Товары не найдены</h4>
-      </section>
+      </CatalogWrapper>
     );
   }
 
   return (
-    <section className="catalog">
-      <h2 className="text-center">Каталог</h2>
+    <CatalogWrapper>
       {children}
       {isLoading ? (
         <Preloader />
@@ -83,9 +80,9 @@ export default function Catalog({ children }: { children: ReactNode }) {
               </div>
             ))}
           </div>
+          {isFetching && <Preloader />}
           {data.length >= offset + 6 && (
             <div className="text-center">
-              {isLoading && <Preloader />}
               <button
                 type="button"
                 aria-disabled={isLoading}
@@ -99,6 +96,15 @@ export default function Catalog({ children }: { children: ReactNode }) {
           )}
         </>
       )}
+    </CatalogWrapper>
+  );
+}
+
+export function CatalogWrapper({ children }: { children: ReactNode }) {
+  return (
+    <section className="catalog">
+      <h2 className="text-center">Каталог</h2>
+      {children}
     </section>
   );
 }

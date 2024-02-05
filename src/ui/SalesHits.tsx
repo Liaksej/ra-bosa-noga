@@ -8,9 +8,10 @@ import Error from "@/ui/Error";
 import Image from "next/image";
 
 export default function SalesHits() {
-  const { data, isLoading, error, refetch } = useGetSalesHitsQuery(undefined);
+  const { data, isLoading, isFetching, error, refetch } =
+    useGetSalesHitsQuery(undefined);
 
-  if (error && !isLoading) {
+  if (error && !isFetching) {
     return (
       <section className="top-sales">
         <h2 className="text-center">Хиты продаж!</h2>
@@ -22,7 +23,7 @@ export default function SalesHits() {
   return (
     <section className="top-sales">
       <h2 className="text-center">Хиты продаж!</h2>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Preloader />
       ) : (
         <>

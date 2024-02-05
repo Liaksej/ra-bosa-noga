@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import NotFound from "@/ui/NotFound";
 import Preloader from "@/ui/Preloader";
-import Image from "next/image";
 
 export default function ItemPage({ params }: { params: { id: number } }) {
   const [chosenSize, setChosenSize] = useState("");
@@ -64,11 +63,11 @@ export default function ItemPage({ params }: { params: { id: number } }) {
                   chosenSize={chosenSize}
                   setChosenSize={setChosenSize}
                 />
-                <AvailabilityHOC sizes={data.sizes}>
+                <Availability sizes={data.sizes}>
                   <Quantity amount={amount} setAmount={setAmount} />
-                </AvailabilityHOC>
+                </Availability>
               </div>
-              <AvailabilityHOC sizes={data.sizes}>
+              <Availability sizes={data.sizes}>
                 <button
                   disabled={chosenSize === ""}
                   onClick={addToCardHandler}
@@ -77,7 +76,7 @@ export default function ItemPage({ params }: { params: { id: number } }) {
                 >
                   В корзину
                 </button>
-              </AvailabilityHOC>
+              </Availability>
             </div>
           </div>
         </>
@@ -86,7 +85,7 @@ export default function ItemPage({ params }: { params: { id: number } }) {
   );
 }
 
-function AvailabilityHOC({
+function Availability({
   children,
   sizes,
 }: {

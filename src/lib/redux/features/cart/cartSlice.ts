@@ -1,15 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { CartItemInterface } from "@/lib/types/apiDefinition";
 
-const initialState: Record<
-  number,
-  {
-    id: number;
-    quantity: number;
-    size: string;
-    price: number;
-    title: string;
-  }
-> =
+const initialState: Record<number, CartItemInterface> =
   (typeof window !== "undefined" &&
     JSON.parse(localStorage.getItem("cart") || "{}")) ||
   {};
@@ -23,13 +15,7 @@ const cartSlice = createSlice({
       {
         payload,
       }: {
-        payload: {
-          id: number;
-          quantity: number;
-          size: string;
-          price: number;
-          title: string;
-        };
+        payload: CartItemInterface;
       },
     ) => {
       if (state[payload.id] && state[payload.id].size === payload.size) {

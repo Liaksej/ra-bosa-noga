@@ -23,10 +23,10 @@ export const catalogApi = createApi({
         params: categoryId
           ? {
               offset: offset,
-              categoryId: categoryId ? categoryId : null,
-              q: q ? q : "",
+              categoryId: categoryId || null,
+              q: q || "",
             }
-          : { offset: offset, q: q ? q : "" },
+          : { offset: offset, q: q || "" },
       }),
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;
