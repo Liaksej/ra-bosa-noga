@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import NotFound from "@/ui/NotFound";
 import Preloader from "@/ui/Preloader";
+import { Size } from "@/lib/types/apiDefinition";
 
 export default function ItemPage({ params }: { params: { id: number } }) {
   const [chosenSize, setChosenSize] = useState("");
@@ -46,11 +47,11 @@ export default function ItemPage({ params }: { params: { id: number } }) {
         <Preloader />
       ) : (
         <>
-          <h2 className="text-center">{data?.title}</h2>
+          <h2 className="text-center">{data.title}</h2>
           <div className="row">
             <div className="col-5">
               <img
-                src={data?.images[0]}
+                src={data.images[0]}
                 className="img-fluid"
                 alt={data.title}
               />
@@ -90,11 +91,7 @@ function Availability({
   sizes,
 }: {
   children: ReactNode;
-  sizes: { size: string; available: boolean }[];
+  sizes: Size[];
 }) {
-  return (
-    sizes.some(
-      (size: { size: string; available: boolean }) => size.available,
-    ) && children
-  );
+  return sizes.some((size: Size) => size.available) && children;
 }

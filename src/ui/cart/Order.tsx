@@ -9,7 +9,7 @@ import Preloader from "@/ui/Preloader";
 
 export default function Order() {
   const products = useAppSelector((state) => selectCartList(state));
-  const [sendOrder, { isSuccess, isLoading, reset }] = useSendOrderMutation();
+  const [sendOrder, { isSuccess, isLoading }] = useSendOrderMutation();
   const dispatch = useAppDispatch();
 
   const submitHandler = async (formData: FormData) => {

@@ -18,3 +18,30 @@ export interface CartItemInterface {
   price: number;
   title: string;
 }
+
+// И ваш middleware будет работать только с экшенами, связанными с корзиной:
+export interface CartAction {
+  type: "ADD_TO_CART" | "REMOVE_FROM_CART" | "RESET";
+  payload: CartItemInterface;
+}
+
+export interface CatalogItemInterface {
+  id: number;
+  category: number;
+  title: string;
+  images: string[];
+  sku: string;
+  manufacturer: string;
+  color: string;
+  material: string;
+  reason: string;
+  season: string;
+  heelSize: string;
+  price: number;
+  sizes: Size[];
+}
+
+export interface Size {
+  size: string;
+  available: boolean;
+}
