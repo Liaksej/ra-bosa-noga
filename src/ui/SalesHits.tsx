@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function SalesHits() {
   const { data, isLoading, error, refetch } = useGetSalesHitsQuery(undefined);
 
-  if (error) {
+  if (error && !isLoading) {
     return (
       <section className="top-sales">
         <h2 className="text-center">Хиты продаж!</h2>

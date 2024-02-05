@@ -23,7 +23,7 @@ export default function Catalog({ children }: { children: ReactNode }) {
     q: searchQuery,
   });
 
-  if (error) {
+  if (error && !isLoading) {
     return (
       <section className="catalog">
         <h2 className="text-center">Каталог</h2>
