@@ -55,7 +55,7 @@ export default function Cart() {
                   </td>
                   <td>{product.size}</td>
                   <td>{product.quantity}</td>
-                  <td>{product.price}руб.</td>
+                  <td>{product.price} руб.</td>
                   <td>{product.price * product.quantity} руб.</td>
                   <td>
                     <button
@@ -68,11 +68,15 @@ export default function Cart() {
                 </tr>
               ),
             )}
-          <tr>
-            <td colSpan={5} className="text-right">
+          <tr className="border-bottom-0">
+            <td
+              colSpan={5}
+              className="text-right border-bottom"
+              style={{ textAlign: "right" }}
+            >
               Общая стоимость
             </td>
-            <td>
+            <td colSpan={1} className="border-bottom">
               {products.reduce(
                 (a: number, b: { price: number; quantity: number }) =>
                   a + b.price * b.quantity,
@@ -80,6 +84,7 @@ export default function Cart() {
               )}{" "}
               руб.
             </td>
+            <td className="d-none"></td>
           </tr>
         </tbody>
       </table>

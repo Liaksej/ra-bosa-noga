@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
-import Order from "@/ui/cart/Order";
+
+const Order = dynamic(() => import("@/ui/cart/Order"), { ssr: false });
 
 export default function CartPage() {
   return <Order />;
