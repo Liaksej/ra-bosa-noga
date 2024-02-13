@@ -36,38 +36,37 @@ export default function Cart() {
           </tr>
         </thead>
         <tbody>
-          {products[0] &&
-            products.map(
-              (
-                product: {
-                  id: number;
-                  quantity: number;
-                  size: string;
-                  price: number;
-                  title: string;
-                },
-                index: number,
-              ) => (
-                <tr key={index}>
-                  <td scope="row">{index + 1}</td>
-                  <td>
-                    <Link href={`/catalog/${product.id}`}>{product.title}</Link>
-                  </td>
-                  <td>{product.size}</td>
-                  <td>{product.quantity}</td>
-                  <td>{product.price} руб.</td>
-                  <td>{product.price * product.quantity} руб.</td>
-                  <td>
-                    <button
-                      onClick={() => deleteHook(product.id)}
-                      className="btn btn-outline-danger btn-sm"
-                    >
-                      Удалить
-                    </button>
-                  </td>
-                </tr>
-              ),
-            )}
+          {products.map(
+            (
+              product: {
+                id: number;
+                quantity: number;
+                size: string;
+                price: number;
+                title: string;
+              },
+              index: number,
+            ) => (
+              <tr key={index}>
+                <td scope="row">{index + 1}</td>
+                <td>
+                  <Link href={`/catalog/${product.id}`}>{product.title}</Link>
+                </td>
+                <td>{product.size}</td>
+                <td>{product.quantity}</td>
+                <td>{product.price} руб.</td>
+                <td>{product.price * product.quantity} руб.</td>
+                <td>
+                  <button
+                    onClick={() => deleteHook(product.id)}
+                    className="btn btn-outline-danger btn-sm"
+                  >
+                    Удалить
+                  </button>
+                </td>
+              </tr>
+            ),
+          )}
           <tr className="border-bottom-0">
             <td
               colSpan={5}
