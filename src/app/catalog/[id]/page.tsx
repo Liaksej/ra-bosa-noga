@@ -23,7 +23,7 @@ export default function ItemPage({ params }: { params: { id: number } }) {
   const router = useRouter();
 
   const addToCardHandler = () => {
-    if (chosenSize !== "") {
+    if (chosenSize !== "" && data) {
       dispatch(
         cartActions.addToCart({
           id: data.id,
@@ -47,28 +47,28 @@ export default function ItemPage({ params }: { params: { id: number } }) {
         <Preloader />
       ) : (
         <>
-          <h2 className="text-center">{data.title}</h2>
+          <h2 className="text-center">{data?.title}</h2>
           <div className="row">
             <div className="col-5">
               <img
-                src={data.images[0]}
+                src={data?.images[0]}
                 className="img-fluid"
-                alt={data.title}
+                alt={data?.title}
               />
             </div>
             <div className="col-7">
               <Table data={data} />
               <div className="text-center">
                 <Sizes
-                  sizes={data.sizes}
+                  sizes={data?.sizes}
                   chosenSize={chosenSize}
                   setChosenSize={setChosenSize}
                 />
-                <Availability sizes={data.sizes}>
+                <Availability sizes={data?.sizes}>
                   <Quantity amount={amount} setAmount={setAmount} />
                 </Availability>
               </div>
-              <Availability sizes={data.sizes}>
+              <Availability sizes={data?.sizes}>
                 <button
                   disabled={chosenSize === ""}
                   onClick={addToCardHandler}
@@ -91,7 +91,7 @@ function Availability({
   sizes,
 }: {
   children: ReactNode;
-  sizes: Size[];
+  sizes: Size[] | undefined;
 }) {
-  return sizes.some((size: Size) => size.available) && children;
+  return sizes?.some((size: Size) => size.available) && children;
 }

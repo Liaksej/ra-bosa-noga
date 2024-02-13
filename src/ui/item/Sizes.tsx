@@ -6,14 +6,14 @@ export default function Sizes({
   chosenSize,
   setChosenSize,
 }: {
-  sizes: { size: string; available: boolean }[];
+  sizes: { size: string; available: boolean }[] | undefined;
   chosenSize: string;
   setChosenSize: Dispatch<SetStateAction<string>>;
 }) {
   return (
     <p>
       Размеры в наличии:{" "}
-      {sizes.map((size: { size: string; available: boolean }) => {
+      {sizes?.map((size: { size: string; available: boolean }) => {
         if (size.available) {
           return (
             <span
