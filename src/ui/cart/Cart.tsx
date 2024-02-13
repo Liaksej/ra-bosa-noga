@@ -4,10 +4,12 @@ import { selectCartList } from "@/lib/redux/features/cart/selectors";
 import Link from "next/link";
 import { cartActions } from "@/lib/redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import PriceChangeAllertTooltip from "@/ui/cart/PriceChangeAllertTooltip";
 
 export default function Cart() {
   const products = useAppSelector((state) => selectCartList(state));
   const dispatch = useAppDispatch();
+
   const deleteHook = (id: number) => {
     dispatch(cartActions.removeFromCart(id));
   };
@@ -54,7 +56,15 @@ export default function Cart() {
                 </td>
                 <td>{product.size}</td>
                 <td>{product.quantity}</td>
-                <td>{product.price} руб.</td>
+                <td>
+                  <span style={{ position: "relative" }}>
+                    {product.price} руб.
+                    <PriceChangeAllertTooltip
+                      id={product.id}
+                      price={product.price}
+                    />
+                  </span>
+                </td>
                 <td>{product.price * product.quantity} руб.</td>
                 <td>
                   <button

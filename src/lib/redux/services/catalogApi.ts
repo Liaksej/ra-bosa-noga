@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { CatalogItemApiInterface } from "@/lib/types/apiDefinition";
 
 export const catalogApi = createApi({
   reducerPath: "catalogApi",
@@ -44,7 +45,7 @@ export const catalogApi = createApi({
     getCategories: builder.query({
       query: () => "categories",
     }),
-    getItem: builder.query({
+    getItem: builder.query<CatalogItemApiInterface, number>({
       query: (id: number) => ({
         url: `items/${id}`,
       }),
