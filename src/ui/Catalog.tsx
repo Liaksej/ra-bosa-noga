@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useAppSelector } from "@/lib/redux/hooks";
 import Preloader from "@/ui/Preloader";
 import Error from "@/ui/Error";
+import { CatalogItemApiInterface } from "@/lib/types/apiDefinition";
 
 export default function Catalog({ children }: { children: ReactNode }) {
   const [offset, setOffset] = useState(0);
@@ -52,7 +53,7 @@ export default function Catalog({ children }: { children: ReactNode }) {
         <>
           <Categories categoryId={setCategory} setOffset={setOffset} />
           <div className="row g-4 mb-4">
-            {data?.map((item: any) => (
+            {data?.map((item: CatalogItemApiInterface) => (
               <div className="col-4" key={item.id}>
                 <div className="card h-100 catalog-item-card">
                   <Image
