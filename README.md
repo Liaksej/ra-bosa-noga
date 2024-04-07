@@ -1,4 +1,4 @@
-# Bona Noga shoe store
+# Bosa Noga shoe store
 
 Online shoe store.
 
